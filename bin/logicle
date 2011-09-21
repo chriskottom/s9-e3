@@ -5,6 +5,7 @@ require_relative "../lib/logicle"
 USAGE_MESSAGE = "logicle <CIRCUIT FILE TO SOLVE> " +
 	        "[<ADDITIONAL CIRCUIT FILES TO LOAD]"
 
+
 # Exit with usage message if user forgets to provide an input file.
 if ARGV.length == 0
    puts USAGE_MESSAGE
@@ -17,10 +18,15 @@ circuit_to_solve = ARGV.shift
 circuits_to_load = ARGV
 
 
-# Load circuits that should be used for this run.
+# Instantiate the Logicle::Simulator instance.
 simulator = Logicle::Simulator.new
-simulator.load_circuits(*circuits_to_load)
-puts "Loaded #{ circuits_to_load } component circuits"
+
+
+# Load circuits that should be used for this run.
+if circuits_to_load and circuits_to_load.count > 0
+  simulator.load_circuits(*circuits_to_load)
+  puts "Loaded #{ circuits_to_load.count } component circuits"
+end
 
 
 # Load the circuit to be solved into Logicle.
@@ -54,7 +60,7 @@ save_output_flag = $stdin.gets.chomp
 
 if save_output_flag =~ /\Ay/i
   output_filename = File.realdirpath(circuit_to_solve) +
-                    File.basename(circuit_to_solve, ".gml") +
-		    "_solved.gml"
+                    File.basename(circuit_to_solve, Logicle::FILE_SUFFIX) +
+		    "_solved" + Logicle::FILE_SUFFIX
   simulator.save_solution(output_filename)
 end

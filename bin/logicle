@@ -1,0 +1,60 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/logicle"
+
+USAGE_MESSAGE = "logicle <CIRCUIT FILE TO SOLVE> " +
+	        "[<ADDITIONAL CIRCUIT FILES TO LOAD]"
+
+# Exit with usage message if user forgets to provide an input file.
+if ARGV.length == 0
+   puts USAGE_MESSAGE
+   exit(1)
+end
+
+
+# Capture inputs from the command line.
+circuit_to_solve = ARGV.shift
+circuits_to_load = ARGV
+
+
+# Load circuits that should be used for this run.
+simulator = Logicle::Simulator.new
+simulator.load_circuits(*circuits_to_load)
+puts "Loaded #{ circuits_to_load } component circuits"
+
+
+# Load the circuit to be solved into Logicle.
+simulator.load(circuit_to_solve)
+puts "Loaded main circuit from file: #{ circuit_to_solve }"
+
+
+# Prompt the user to enter states for each of the switch inputs.
+switch_count = simulator.switches.count
+puts "The circuit to be solved requires #{ switch_count } input values (on/off)."
+
+switch_states = []
+switch_count.times do
+  switch_states << prompt_for_switch_state
+end
+
+
+# Evaluate the circuit given the entered inputs.
+bulb_states = simulator.evaluate(switch_states)
+
+
+# Print out the bulb states.
+bulb_states.each_with_index do |state, i|
+  puts "Bulb \##{ i + 1 }:  #{ state ? "on" : "off" }"
+end
+
+
+# Ask the user to save the result file.
+$stdout.write "Save output? (y/N): "
+save_output_flag = $stdin.gets.chomp
+
+if save_output_flag =~ /\Ay/i
+  output_filename = File.realdirpath(circuit_to_solve) +
+                    File.basename(circuit_to_solve, ".gml") +
+		    "_solved.gml"
+  simulator.save_solution(output_filename)
+end

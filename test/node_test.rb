@@ -5,16 +5,7 @@ require "test/unit"
 
 
 class NodeTest < Test::Unit::TestCase
-  def node(type)
-    Logicle::Node.new(type)
-  end
-
-  def assert_value_with_inputs(value, target_node, *inputs)
-    target_node.clear_inputs
-    target_node.append_inputs(*inputs)
-    assert_equal(value, target_node.state)
-  end
-
+  include TestHelper
 
   def test_on_node
     assert_equal(true, node(:on).state)
@@ -29,8 +20,8 @@ class NodeTest < Test::Unit::TestCase
     on_node = node(:on)
     off_node = node(:off)
 
-    assert_value_with_inputs(false, not_node, on_node)
-    assert_value_with_inputs(true, not_node, off_node)
+    assert_node_state_for_inputs(false, not_node, on_node)
+    assert_node_state_for_inputs(true, not_node, off_node)
   end
 
   def test_and_node
@@ -38,10 +29,10 @@ class NodeTest < Test::Unit::TestCase
     on_node = node(:on)
     off_node = node(:off)
 
-    assert_value_with_inputs(true, and_node, on_node, on_node)
-    assert_value_with_inputs(false, and_node, on_node, off_node)
-    assert_value_with_inputs(false, and_node, off_node, on_node)
-    assert_value_with_inputs(false, and_node, off_node, off_node)
+    assert_node_state_for_inputs(true, and_node, on_node, on_node)
+    assert_node_state_for_inputs(false, and_node, on_node, off_node)
+    assert_node_state_for_inputs(false, and_node, off_node, on_node)
+    assert_node_state_for_inputs(false, and_node, off_node, off_node)
   end
 
   def test_or_node
@@ -49,10 +40,10 @@ class NodeTest < Test::Unit::TestCase
     on_node = node(:on)
     off_node = node(:off)
 
-    assert_value_with_inputs(true, or_node, on_node, on_node)
-    assert_value_with_inputs(true, or_node, on_node, off_node)
-    assert_value_with_inputs(true, or_node, off_node, on_node)
-    assert_value_with_inputs(false, or_node, off_node, off_node)
+    assert_node_state_for_inputs(true, or_node, on_node, on_node)
+    assert_node_state_for_inputs(true, or_node, on_node, off_node)
+    assert_node_state_for_inputs(true, or_node, off_node, on_node)
+    assert_node_state_for_inputs(false, or_node, off_node, off_node)
   end
 
   def test_nand_node
@@ -60,10 +51,10 @@ class NodeTest < Test::Unit::TestCase
     on_node = node(:on)
     off_node = node(:off)
 
-    assert_value_with_inputs(false, nand_node, on_node, on_node)
-    assert_value_with_inputs(true, nand_node, on_node, off_node)
-    assert_value_with_inputs(true, nand_node, off_node, on_node)
-    assert_value_with_inputs(true, nand_node, off_node, off_node)
+    assert_node_state_for_inputs(false, nand_node, on_node, on_node)
+    assert_node_state_for_inputs(true, nand_node, on_node, off_node)
+    assert_node_state_for_inputs(true, nand_node, off_node, on_node)
+    assert_node_state_for_inputs(true, nand_node, off_node, off_node)
   end
 
   def test_nor_node
@@ -71,10 +62,10 @@ class NodeTest < Test::Unit::TestCase
     on_node = node(:on)
     off_node = node(:off)
 
-    assert_value_with_inputs(false, nor_node, on_node, on_node)
-    assert_value_with_inputs(false, nor_node, on_node, off_node)
-    assert_value_with_inputs(false, nor_node, off_node, on_node)
-    assert_value_with_inputs(true, nor_node, off_node, off_node)
+    assert_node_state_for_inputs(false, nor_node, on_node, on_node)
+    assert_node_state_for_inputs(false, nor_node, on_node, off_node)
+    assert_node_state_for_inputs(false, nor_node, off_node, on_node)
+    assert_node_state_for_inputs(true, nor_node, off_node, off_node)
   end
 
   def test_xor_node
@@ -82,10 +73,10 @@ class NodeTest < Test::Unit::TestCase
     on_node = node(:on)
     off_node = node(:off)
 
-    assert_value_with_inputs(false, xor_node, on_node, on_node)
-    assert_value_with_inputs(true, xor_node, on_node, off_node)
-    assert_value_with_inputs(true, xor_node, off_node, on_node)
-    assert_value_with_inputs(false, xor_node, off_node, off_node)
+    assert_node_state_for_inputs(false, xor_node, on_node, on_node)
+    assert_node_state_for_inputs(true, xor_node, on_node, off_node)
+    assert_node_state_for_inputs(true, xor_node, off_node, on_node)
+    assert_node_state_for_inputs(false, xor_node, off_node, off_node)
   end
 
   def test_xnor_node
@@ -93,10 +84,10 @@ class NodeTest < Test::Unit::TestCase
     on_node = node(:on)
     off_node = node(:off)
 
-    assert_value_with_inputs(true, xnor_node, on_node, on_node)
-    assert_value_with_inputs(false, xnor_node, on_node, off_node)
-    assert_value_with_inputs(false, xnor_node, off_node, on_node)
-    assert_value_with_inputs(true, xnor_node, off_node, off_node)
+    assert_node_state_for_inputs(true, xnor_node, on_node, on_node)
+    assert_node_state_for_inputs(false, xnor_node, on_node, off_node)
+    assert_node_state_for_inputs(false, xnor_node, off_node, on_node)
+    assert_node_state_for_inputs(true, xnor_node, off_node, off_node)
   end
 
 end

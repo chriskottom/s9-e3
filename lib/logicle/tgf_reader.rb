@@ -1,6 +1,4 @@
 module Logicle
-  class ParseError < StandardError; end
-
   class TgfReader
     def initialize(filename)
       file = File.open(filename, "rb")

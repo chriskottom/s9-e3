@@ -1,0 +1,10 @@
+# emacs
+*~
+\#*\#
+
+# Ruby / Rubygems
+*.gem
+
+# Bundler
+.bundle
+vendor/bundle

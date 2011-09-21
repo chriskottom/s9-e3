@@ -12,8 +12,9 @@ module Logicle
       xnor: Proc.new { |args| !(args[0].state ^ args[1].state) }
     }
 
+
     attr_reader :type, :inputs
-    #attr_reader :type
+
 
     def initialize(type)
       @type = type

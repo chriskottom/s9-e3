@@ -2,8 +2,8 @@
 
 require_relative "../lib/logicle"
 
-USAGE_MESSAGE = "logicle <CIRCUIT FILE TO SOLVE> " +
-	        "[<ADDITIONAL CIRCUIT FILES TO LOAD]"
+
+USAGE_MESSAGE = "logicle <CIRCUIT FILE TO SOLVE> "
 
 
 # Exit with usage message if user forgets to provide an input file.
@@ -14,24 +14,16 @@ end
 
 
 # Capture inputs from the command line.
-circuit_to_solve = ARGV.shift
-circuits_to_load = ARGV
+circuit_file = ARGV.shift
 
 
 # Instantiate the Logicle::Simulator instance.
 simulator = Logicle::Simulator.new
 
 
-# Load circuits that should be used for this run.
-if circuits_to_load and circuits_to_load.count > 0
-  simulator.load_circuits(*circuits_to_load)
-  puts "Loaded #{ circuits_to_load.count } component circuits"
-end
-
-
 # Load the circuit to be solved into Logicle.
-simulator.load(circuit_to_solve)
-puts "Loaded main circuit from file: #{ circuit_to_solve }"
+simulator.load(circuit_file)
+puts "Loaded main circuit from file: #{ circuit_file }"
 
 
 # Prompt the user to enter states for each of the switch inputs.

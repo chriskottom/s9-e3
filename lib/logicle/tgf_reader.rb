@@ -34,8 +34,10 @@ module Logicle
         id, label = $1, $2
         @circuit.add_node(id, label.downcase.to_sym)
       else
-        raise ParseError, "Unable to parse TGF node directive: #{ text }"
+        raise ParseError, "Unable to parse TGF node directive: '#{ text }'"
       end
+    rescue UnknownNodeTypeError
+      raise ParseError, "Unknown node type in directive: '#{ label }'"
     end
 
     def edge_directive(text)
@@ -43,7 +45,7 @@ module Logicle
         start, finish = $1, $2
         @circuit.add_edge(start, finish)
       else
-        raise ParseError, "Unable to parse TGF edge directive: #{ text }"
+        raise ParseError, "Unable to parse TGF edge directive: '#{ text }'"
       end
     end
   end

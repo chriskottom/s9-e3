@@ -12,12 +12,10 @@ module Logicle
       xnor: Proc.new { |args| !(args[0].state ^ args[1].state) }
     }
 
-
     attr_reader :type, :inputs
 
-
     def initialize(type)
-      @type = type
+      @type = validate_type(type)
       @inputs = []
     end
 
@@ -36,6 +34,14 @@ module Logicle
     end
 
     private
+    def validate_type(type)
+      if LOGIC_OPERATIONS.keys.include?(type)
+        type
+      else
+        raise UnknownNodeTypeError, "Unknown node type: '#{ type }'"
+      end
+    end
+
     def evaluate
       operation = LOGIC_OPERATIONS[@type]
       operation.call(@inputs)

@@ -6,4 +6,6 @@ module Logicle
   # Raised in case of error while reading an input file 
   class ParseError < StandardError; end
 
+  # Raised when trying to create a node with an unknown type.
+  class UnknownNodeTypeError < StandardError; end
 end

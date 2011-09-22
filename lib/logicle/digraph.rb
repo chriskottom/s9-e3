@@ -5,15 +5,15 @@ module Logicle
     end
 
     def inputs
-      @nodes.reject { |node| node.inputs.count > 0 }
+      @nodes.select { |id, node| node.type == :switch }
     end
 
     def outputs
-      
+      @nodes.select { |id, node| node.type == :bulb }
     end
 
     def add_node(id, node_type)
-      @nodes[id] = Node.new(node_type)
+      @nodes[id] = Node.new(id, node_type)
       self
     end
 

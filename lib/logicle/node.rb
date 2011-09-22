@@ -14,11 +14,16 @@ module Logicle
       xnor:   Proc.new { |args| !(args[0].state ^ args[1].state) }
     }
 
-    attr_reader   :type, :inputs
+    attr_reader   :id, :type, :inputs
 
-    def initialize(type)
+    def initialize(id, type)
+      @id = id
       @type = validate_type(type)
       @inputs = []
+    end
+
+    def type=(new_type)
+      @type = validate_type(new_type)
     end
 
     def append_inputs(*nodes)

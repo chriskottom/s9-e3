@@ -1,19 +1,24 @@
 module Logicle
   class Simulator
-    attr_accessor  :switches
+    attr_reader  :circuit
 
-    def initialize
-      @switches = []
+    def inputs
+      @circuit.inputs
     end
 
-    def load_circuits(*circuit_files)
+    def outputs
+      @circuit.outputs
     end
 
     def load(circuit_file)
+      reader = TgfReader.new(circuit_file)
+      @circuit = reader.parse
     end
 
-    def evaluate(switch_states)
-      []
+    def evaluate
+      outputs.values.each do |output|
+        output.state
+      end
     end
 
     def save_solution(output_file)

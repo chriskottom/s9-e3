@@ -1,3 +1,3 @@
 module Logicle
-  FILE_SUFFIX = ".gml"
+  FILE_SUFFIX = ".tgf"
 end

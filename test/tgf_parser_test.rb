@@ -21,6 +21,13 @@ class TgfParserTest < Test::Unit::TestCase
 
   def test_parsing
     circuit = tgf_reader.parse
+
+    node_lines, edge_lines = tgf_content.split(/#\s*\n/)
+
+    assert_equal(node_lines.chomp.lines.count,
+                 circuit.instance_variable_get(:@nodes).count)
+    assert_equal(edge_lines.lines.count,
+                 circuit.instance_variable_get(:@edges).count)
   end
 
   def test_parsing_with_bad_node_type

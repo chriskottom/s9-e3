@@ -1,15 +1,14 @@
 module Logicle
   class TgfReader
     def initialize(filename)
-      file = File.open(filename, "rb")
-      @contents = file.read
+      @contents = File.readlines(filename)
     end
 
     def parse
       @circuit = Digraph.new
       still_reading_nodes = true
 
-      @contents.lines.each do |line|
+      @contents.each do |line|
         if line =~ /\A#/
           still_reading_nodes = false
           next

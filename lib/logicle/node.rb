@@ -1,18 +1,20 @@
 module Logicle
   class Node
     LOGIC_OPERATIONS = {
-      on:   Proc.new { |args| true },
-      off:  Proc.new { |args| false },
-      not:  Proc.new { |args| !args[0].state },
-      and:  Proc.new { |args| args[0].state & args[1].state },
-      or:   Proc.new { |args| args[0].state | args[1].state },
-      nand: Proc.new { |args| !args[0].state | !args[1].state },
-      nor:  Proc.new { |args| !args[0].state & !args[1].state },
-      xor:  Proc.new { |args| args[0].state ^ args[1].state },
-      xnor: Proc.new { |args| !(args[0].state ^ args[1].state) }
+      switch: Proc.new { |args| nil },
+      bulb:   Proc.new { |args| args[0].state },
+      on:     Proc.new { |args| true },
+      off:    Proc.new { |args| false },
+      not:    Proc.new { |args| !args[0].state },
+      and:    Proc.new { |args| args[0].state & args[1].state },
+      or:     Proc.new { |args| args[0].state | args[1].state },
+      nand:   Proc.new { |args| !args[0].state | !args[1].state },
+      nor:    Proc.new { |args| !args[0].state & !args[1].state },
+      xor:    Proc.new { |args| args[0].state ^ args[1].state },
+      xnor:   Proc.new { |args| !(args[0].state ^ args[1].state) }
     }
 
-    attr_reader :type, :inputs
+    attr_reader   :type, :inputs
 
     def initialize(type)
       @type = validate_type(type)

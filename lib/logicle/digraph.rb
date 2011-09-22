@@ -4,6 +4,14 @@ module Logicle
       @nodes, @edges = {}, {}
     end
 
+    def inputs
+      @nodes.reject { |node| node.inputs.count > 0 }
+    end
+
+    def outputs
+      
+    end
+
     def add_node(id, node_type)
       @nodes[id] = Node.new(node_type)
       self
@@ -11,13 +19,13 @@ module Logicle
 
     def add_edge(start_id, end_id)
       start_node, end_node = @nodes[start_id], @nodes[end_id]
-      if start_node and end_node
+      if start_node && end_node
         end_node.append_input(start_node)
         @edges[start_id] = end_id
         self
       else
         error_message = ""
-        if start_node.nil? and end_node.nil?
+        if start_node.nil? && end_node.nil?
           error_message = "Nodes for ids not found: #{ start_id }, #{ end_id }"
         elsif start_node.nil?
           error_message = "Node for id not found: #{ start_id }"

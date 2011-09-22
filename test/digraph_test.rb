@@ -8,7 +8,7 @@ class DigraphTest < Test::Unit::TestCase
 
   def test_add_node
     start_node_count = digraph.instance_variable_get(:@nodes).count
-    digraph.add_node(1, node(:and))
+    digraph.add_node(1, :and)
     assert_equal(start_node_count + 1, 
                  digraph.instance_variable_get(:@nodes).count)
   end

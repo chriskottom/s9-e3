@@ -54,15 +54,13 @@ bulbs = simulator.outputs.values
 bulbs.each_with_index do |bulb, i|
   puts "Bulb \##{ i + 1 }:  #{ bulb.state ? "on" : "off" }"
 end
-exit(0)
+
 
 # Ask the user to save the result file.
 $stdout.write "Save output? (y/N): "
 save_output_flag = $stdin.gets.chomp
 
 if save_output_flag =~ /\Ay/i
-  output_filename = File.realdirpath(circuit_to_solve) +
-                    File.basename(circuit_to_solve, Logicle::FILE_SUFFIX) +
-		    "_solved" + Logicle::FILE_SUFFIX
+  output_filename = File.realdirpath(circuit_file).sub(/\.tgf\Z/, "_solved.tgf")
   simulator.save_solution(output_filename)
 end

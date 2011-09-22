@@ -1,5 +1,7 @@
 module Logicle
   class Digraph
+    attr_reader :nodes, :edges
+
     def initialize
       @nodes, @edges = {}, {}
     end

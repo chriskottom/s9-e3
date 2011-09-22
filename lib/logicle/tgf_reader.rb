@@ -1,7 +1,11 @@
 module Logicle
   class TgfReader
-    def initialize(filename)
-      @contents = File.readlines(filename)
+    def initialize(input)
+      if File.exists?(input)
+        @contents = File.readlines(input)    # read file for TGF content
+      else
+        @contents = input.lines              # use string param as TGF content
+      end
     end
 
     def parse
@@ -9,6 +13,8 @@ module Logicle
       still_reading_nodes = true
 
       @contents.each do |line|
+        line.chomp!
+
         if line =~ /\A#/
           still_reading_nodes = false
           next

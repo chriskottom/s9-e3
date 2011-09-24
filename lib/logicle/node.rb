@@ -22,6 +22,14 @@ module Logicle
       @inputs = []
     end
 
+    def bulb?
+      @type == :bulb
+    end
+
+    def switch?
+      @type == :switch
+    end
+
     def type=(new_type)
       @type = validate_type(new_type)
     end

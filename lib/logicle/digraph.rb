@@ -7,11 +7,11 @@ module Logicle
     end
 
     def inputs
-      @nodes.select { |id, node| node.type == :switch }
+      @nodes.select { |id, node| node.switch? }
     end
 
     def outputs
-      @nodes.select { |id, node| node.type == :bulb }
+      @nodes.select { |id, node| node.bulb? }
     end
 
     def add_node(id, node_type)

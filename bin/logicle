@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require_relative "../lib/logicle"
+require "logicle"
 
 
 USAGE_MESSAGE = "logicle <CIRCUIT FILE TO SOLVE> "

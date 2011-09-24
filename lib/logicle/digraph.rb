@@ -7,7 +7,7 @@ module Logicle
     end
 
     def evaluate
-      outputs.values.each do |output|
+      outputs.each_value do |output|
         output.state
       end
     end

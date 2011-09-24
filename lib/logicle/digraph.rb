@@ -16,26 +16,31 @@ module Logicle
 
     def add_node(id, node_type)
       @nodes[id] = Node.new(id, node_type)
-      self
     end
 
     def add_edge(start_id, end_id)
       start_node, end_node = @nodes[start_id], @nodes[end_id]
-      if start_node && end_node
+
+      if start_node && end_node 
         end_node.append_input(start_node)
         @edges[start_id] = end_id
-        self
+        true
       else
-        error_message = ""
-        if start_node.nil? && end_node.nil?
-          error_message = "Nodes for ids not found: #{ start_id }, #{ end_id }"
-        elsif start_node.nil?
-          error_message = "Node for id not found: #{ start_id }"
-        else
-          error_message = "Node for id not found: #{ end_id }"
-        end
+        raise_unknown_nodes(start_id => start_node, end_id => end_node)
+      end
+    end
 
-        raise UnknownNodeError, error_message
+    private
+    def raise_unknown_nodes(node_map={})
+      bad_node_ids = node_map.select { |id, node| node.nil? }.keys 
+
+      case bad_node_ids.count
+      when 0
+        return
+      when 1
+        raise UnknownNodeError, "Invalid node id: #{ bad_node_ids[0] }"
+      else
+        raise UnknownNodeError, "Invalid node ids: #{ bad_node_ids.join(", ") }"
       end
     end
   end

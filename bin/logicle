@@ -27,8 +27,7 @@ puts "Loaded main circuit from file: #{ circuit_file }"
 
 
 # Prompt the user to enter states for each of the switch inputs.
-switches = simulator.inputs.values
-puts "The circuit to be solved requires #{ switches.count } input values (on/off)."
+switches = simulator.inputs.valuesputs "The circuit to be solved requires #{ switches.count } input values (on/off)."
 
 switches.each_with_index do |switch, index|
   $stdout.printf("Switch %d on? (Y/n):>> ", index + 1)
@@ -62,5 +61,5 @@ save_output_flag = $stdin.gets.chomp
 
 if save_output_flag =~ /\Ay/i
   output_filename = File.realdirpath(circuit_file).sub(/\.tgf\Z/, "_solved.tgf")
-  simulator.save_solution(output_filename)
+  simulator.save(output_filename)
 end

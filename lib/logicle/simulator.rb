@@ -19,7 +19,7 @@ module Logicle
       @circuit.evaluate
     end
 
-    def save_solution(output_file)
+    def save(output_file)
       writer = TgfWriter.new(output_file, @circuit)
       writer.write
     end

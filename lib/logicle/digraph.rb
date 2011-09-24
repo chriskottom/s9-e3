@@ -6,6 +6,12 @@ module Logicle
       @nodes, @edges = {}, {}
     end
 
+    def evaluate
+      outputs.values.each do |output|
+        output.state
+      end
+    end
+
     def inputs
       @nodes.select { |id, node| node.switch? }
     end

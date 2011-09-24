@@ -16,9 +16,7 @@ module Logicle
     end
 
     def evaluate
-      outputs.values.each do |output|
-        output.state
-      end
+      @circuit.evaluate
     end
 
     def save_solution(output_file)

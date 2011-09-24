@@ -20,7 +20,7 @@ puts "Loaded main circuit from file: #{ circuit_file }"
 
 
 # Prompt the user to enter states for each of the switch inputs.
-switches = simulator.inputs.values
+switches = simulator.inputs
 puts "The circuit to be solved requires #{ switches.count } input values (on/off)."
 
 switches.each_with_index do |switch, index|
@@ -40,7 +40,7 @@ end
 
 # Evaluate the circuit.
 simulator.evaluate
-bulbs = simulator.outputs.values
+bulbs = simulator.outputs
 
 
 # Print out the bulb states.

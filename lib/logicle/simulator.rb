@@ -10,11 +10,11 @@ module Logicle
     end
 
     def inputs
-      @circuit.inputs
+      @circuit.inputs.values
     end
 
     def outputs
-      @circuit.outputs
+      @circuit.outputs.values
     end
 
     def evaluate

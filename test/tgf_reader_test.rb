@@ -3,7 +3,7 @@ require_relative "test_helper"
 require "test/unit"
 
 
-class TgfParserTest < Test::Unit::TestCase
+class TgfReaderTest < Test::Unit::TestCase
   include TestHelper
 
   def test_initialization_with_filename
@@ -41,6 +41,6 @@ class TgfParserTest < Test::Unit::TestCase
     content = tgf_content << "\n10000 100001"
     assert_raises(Logicle::ParseError) do
       tgf_reader(content).parse
-    end    
+    end
   end
 end

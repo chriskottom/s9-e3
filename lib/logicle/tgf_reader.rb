@@ -17,7 +17,6 @@ module Logicle
 
         if line =~ /\A#/
           still_reading_nodes = false
-          next
         elsif still_reading_nodes
           node_directive(line)
         else

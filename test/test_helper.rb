@@ -1,8 +1,8 @@
 require_relative "../lib/logicle.rb"
 
 module TestHelper
-  def node(type)
-    Logicle::Node.new(type)
+  def node(type, id=1)
+    Logicle::Node.new(id, type)
   end
 
   def digraph

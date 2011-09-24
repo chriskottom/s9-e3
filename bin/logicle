@@ -18,11 +18,7 @@ circuit_file = ARGV.shift
 
 
 # Instantiate the Logicle::Simulator instance.
-simulator = Logicle::Simulator.new
-
-
-# Load the circuit to be solved into Logicle.
-simulator.load(circuit_file)
+simulator = Logicle::Simulator.new(circuit_file)
 puts "Loaded main circuit from file: #{ circuit_file }"
 
 

@@ -7,10 +7,7 @@ USAGE_MESSAGE = "logicle <CIRCUIT FILE TO SOLVE> "
 
 
 # Exit with usage message if user forgets to provide an input file.
-if ARGV.length == 0
-   puts USAGE_MESSAGE
-   exit(1)
-end
+Kernel.abort(USAGE_MESSAGE) if ARGV.length == 0
 
 
 # Capture inputs from the command line.
